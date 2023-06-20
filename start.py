@@ -2,10 +2,17 @@ import sys
 import os
 from scripts.converter import convert_audio_m4a_to_wav
 from scripts.transcribator import transcribation
+from scripts.gpt_proxy import gpt
 import time
 import datetime
 import pandas as pd
 import re
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
 
 def merge_speakers(df):
     # Create a 'group' column that increments every time 'speaker_name' changes
@@ -53,10 +60,30 @@ def main():
     # Merge speakers
     df = merge_speakers(df)
     # Save as text in format: start_time speaker_name transcription
+    transcription = ''
     with open('out/transcription.txt', 'w') as f:
         for index, row in df.iterrows():
-            # f.write(str(row['start_time']) + ' ' + row['speaker_name'] + ' ' + row['transcription'] + '\n')
-            f.write(row['speaker_name'] + ': ' + row['transcription'] + '\n')
+            new_line = row['speaker_name'] + ': ' + row['transcription'] + '\n'
+            transcription += new_line
+            f.write(new_line)
+    
+    # Restoring the dialog
+    if not os.path.exists("openai_api_key.txt"):
+        logger.info("openai_api_key.txt not found")
+        sys.exit(1)
+    with open("openai_api_key.txt", "r") as f:
+        openai_key = f.read().splitlines()[0]
+    # read with utf-8-sig encoding to remove BOM
+    # with open('out/transcription.txt', 'r', encoding='utf-8-sig') as f:
+    with open('out/transcription.txt', 'r') as f:
+        transcription = f.read()
+    system_prompt = """You are the secretary. Your job is reading the text which was recognized from audio recordings obtained as a result of Zoom video meetings. And then you need to write a short Russian overview about meeting:
+* Agenda
+* Discussion topics
+* Resume of this meeting"""
+    transctiption_restored = gpt(transcription, openai_key, system_prompt)
+    with open('out/transcription_restored.txt', 'w') as f:
+        f.write(transctiption_restored)    
             
     time_end = time.time()
     time_passed_formatted = str(datetime.timedelta(seconds=time_end - time_start))
