@@ -40,7 +40,7 @@ def main():
         filename_wav = filename.split('.')[0] + '.wav'
         out_path = os.path.join('out', filename_wav)
         
-        """# Convert audio
+        # Convert audio
         print('#', filename, 'convert_audio')
         convert_audio_m4a_to_wav(in_path, out_path)
 
@@ -52,9 +52,10 @@ def main():
             speaker_name = match.group(1)
         else:
             speaker_name = filename
-        transcribation(out_path, out_path + '.csv', speaker_name)"""
+        transcribation(out_path, out_path + '.csv', speaker_name)
         # Append the transcribed data to the dataframe
         df = df.append(pd.read_csv(out_path + '.csv'))
+    
     # Sort by start_time
     df = df.sort_values(by=['start_time'])
     # Merge speakers
