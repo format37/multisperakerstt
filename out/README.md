@@ -1,0 +1,1 @@
+Path, where the results of transcribation and translation will be saved
