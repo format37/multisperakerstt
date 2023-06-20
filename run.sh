@@ -1,4 +1,5 @@
 sudo docker run -it --rm \
+  --network=host \
   -v $(pwd)/scripts:/app/scripts \
   -v $(pwd)/in:/app/in \
   -v $(pwd)/out:/app/out \
