@@ -3,15 +3,11 @@ import sys
 import subprocess
 
 def convert_audio(input_audio_path, output_audio_path):
-    command = ["ffmpeg", "-i", input_audio_path, "-ac", "1", "-ar", "16000", "-ab", "256k", output_audio_path]
+    command = ["ffmpeg", "-i", input_audio_path, "-y", "-ac", "1", "-ar", "16000", "-ab", "256k", output_audio_path]
     subprocess.run(command, check=True)
 
-def convert_audio_0(input_audio_path, output_audio_path):
-    command = f"ffmpeg -i {input_audio_path} -ac 1 -ar 16000 -ab 256k {output_audio_path}"
-    os.system(command)
-
 def convert_audio_m4a_to_wav(input_audio_path, output_audio_path):
-    command = ["ffmpeg", "-i", input_audio_path, "-ac", "1", "-ar", "32000", "-ab", "126k", output_audio_path]
+    command = ["ffmpeg", "-i", input_audio_path, "-y", "-ac", "1", "-ar", "32000", "-ab", "126k", output_audio_path]
     subprocess.run(command, check=True)
 
 def main():
