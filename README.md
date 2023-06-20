@@ -18,7 +18,7 @@ and put it to a new file 'openai_api_key.txt':
 echo "your-openai-key" > openai_api_key.txt
 ```
 
-## Package run
+## Usage
 1. Put your Zoom audio files into 'in' folder  
 2. Run:
 ```
