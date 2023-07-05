@@ -4,7 +4,7 @@
 
 - Docker
 - [openai api key](https://openai.com/)
-- [vosk speech to text](https://github.com/format37/stt/tree/main/vosk_cpu)
+- [vosk speech to text](https://github.com/format37/stt/tree/main/vosk_gpu)
 
 ## Installation
 ```
