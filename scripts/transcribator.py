@@ -35,7 +35,10 @@ async def run_test(uri, filename, out_filepath, speaker_name):
             accept_feature_extractor(df_data, accept, speaker_name)
 
         await websocket.send('{"eof" : 1}')
-        accept = json.loads(await websocket.recv())		
+        received_data = await websocket.recv()
+        print('\nreceived_data:')
+        print(received_data)
+        accept = json.loads(received_data)
         accept_feature_extractor(df_data, accept, speaker_name)
 
     # Create pandas DataFrame and save to CSV
@@ -45,7 +48,7 @@ async def run_test(uri, filename, out_filepath, speaker_name):
 
 def transcribation(filename, out_filepath, speaker_name):
     print('# transcribation', filename, out_filepath, speaker_name)
-    asyncio.run(run_test('ws://localhost:2800', filename, out_filepath, speaker_name))
+    asyncio.run(run_test('ws://localhost:2700', filename, out_filepath, speaker_name))
 
 
 def main():

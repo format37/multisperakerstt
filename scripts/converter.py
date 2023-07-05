@@ -2,13 +2,19 @@ import os
 import sys
 import subprocess
 
+"""def convert_audio(input_audio_path, output_audio_path):
+    command = ["ffmpeg", "-i", input_audio_path, "-y", "-ac", "1", "-ar", "16000", "-ab", "256k", output_audio_path]
+    process = subprocess.run(command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    print('stdout:', process.stdout)
+    print('stderr:', process.stderr)"""
+
 def convert_audio(input_audio_path, output_audio_path):
     command = ["ffmpeg", "-i", input_audio_path, "-y", "-ac", "1", "-ar", "16000", "-ab", "256k", output_audio_path]
     subprocess.run(command, check=True)
 
-def convert_audio_m4a_to_wav(input_audio_path, output_audio_path):
+"""def convert_audio_m4a_to_wav(input_audio_path, output_audio_path):
     command = ["ffmpeg", "-i", input_audio_path, "-y", "-ac", "1", "-ar", "32000", "-ab", "126k", output_audio_path]
-    subprocess.run(command, check=True)
+    subprocess.run(command, check=True)"""
 
 def main():
     # Ensure correct number of arguments are passed

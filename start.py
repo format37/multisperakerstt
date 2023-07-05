@@ -1,6 +1,6 @@
 import sys
 import os
-from scripts.converter import convert_audio_m4a_to_wav
+from scripts.converter import convert_audio
 from scripts.transcribator import transcribation
 from scripts.gpt_proxy import gpt
 import time
@@ -42,7 +42,7 @@ def main():
         
         # Convert audio
         print('#', filename, 'convert_audio')
-        convert_audio_m4a_to_wav(in_path, out_path)
+        convert_audio(in_path, out_path)
 
         # Transcribe
         print('#', filename, 'transcribation')
